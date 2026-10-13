@@ -1,0 +1,206 @@
+{
+  "name": "bisbi",
+  "productName": "Bisbi",
+  "version": "1.0.8",
+  "description": "Local-first voice dictation. Press a hotkey, speak, paste.",
+  "private": true,
+  "main": "electron/dist/main.js",
+  "author": {
+    "name": "IPTRADE COPIER LLC",
+    "email": "hello@bisbi.io"
+  },
+  "scripts": {
+    "postinstall": "electron-rebuild -f -w uiohook-napi",
+    "dev": "concurrently -k -n vite,electron -c blue,magenta \"npm:dev:vite\" \"npm:dev:electron-wait\"",
+    "dev:vite": "vite",
+    "dev:electron-wait": "node scripts/dev-electron.js",
+    "dev:electron": "tsc -p electron/tsconfig.json && electron electron/dist/main.js",
+    "models:fetch": "node scripts/fetch-whisper-models.mjs",
+    "build": "npm run models:fetch && npm run build:frontend && npm run build:electron",
+    "build:frontend": "vite build",
+    "build:electron": "node scripts/build-electron.mjs",
+    "build:electron-dev": "tsc -p electron/tsconfig.json",
+    "package": "npm run build && electron-builder",
+    "package:mac": "npm run build && electron-builder --mac",
+    "package:win": "npm run build && electron-builder --win",
+    "package:linux": "npm run build && electron-builder --linux",
+    "typecheck": "tsc --noEmit && tsc -p electron/tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "uiohook-napi": "^1.5.5"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^4.2.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "@types/node": "^22.7.4",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "concurrently": "^9.0.1",
+    "electron": "^33.0.2",
+    "electron-builder": "^25.1.8",
+    "esbuild": "^0.28.0",
+    "javascript-obfuscator": "^5.4.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "app.bisbi.desktop",
+    "productName": "Bisbi",
+    "copyright": "Copyright © 2026 Joaquin Metayer",
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/uiohook-napi/**/*"
+    ],
+    "files": [
+      "electron/dist/**/*",
+      "dist/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/models",
+        "to": "models",
+        "filter": [
+          "tiny.pt"
+        ]
+      },
+      {
+        "from": "electron/python",
+        "to": "python",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "THIRD_PARTY_NOTICES.md",
+        "to": "THIRD_PARTY_NOTICES.md"
+      },
+      {
+        "from": "build-resources/owl_idle_black.png",
+        "to": "owl_idle_black.png"
+      },
+      {
+        "from": "build-resources/owl_idle_white.png",
+        "to": "owl_idle_white.png"
+      },
+      {
+        "from": "build-resources/owl_rec_black.png",
+        "to": "owl_rec_black.png"
+      },
+      {
+        "from": "build-resources/owl_rec_white.png",
+        "to": "owl_rec_white.png"
+      }
+    ],
+    "directories": {
+      "output": "release",
+      "buildResources": "build-resources"
+    },
+    "afterPack": "electron/dist/afterPack.js",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "jometa9",
+        "repo": "Bisbi"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "build-resources/icon.icns",
+      "hardenedRuntime": true,
+      "entitlements": "electron/entitlements.mac.plist",
+      "entitlementsInherit": "electron/entitlements.mac.plist",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "Bisbi necesita acceso al micrófono para transcribir tu voz a texto localmente.",
+        "NSAppleEventsUsageDescription": "Bisbi simula Cmd+V para pegar la transcripción en la app activa.",
+        "LSUIElement": true
+      },
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "artifactName": "Bisbi-${version}-${os}-${arch}.${ext}"
+    },
+    "dmg": {
+      "icon": "build-resources/icon.icns",
+      "background": "build-resources/dmg-background.png",
+      "window": {
+        "width": 540,
+        "height": 380
+      },
+      "contents": [
+        {
+          "x": 130,
+          "y": 200,
+          "type": "file"
+        },
+        {
+          "x": 410,
+          "y": 200,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "icon": "build-resources/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "include": "build/installer.nsh",
+      "installerSidebar": "build-resources/installerSidebar.bmp",
+      "uninstallerSidebar": "build-resources/uninstallerSidebar.bmp",
+      "artifactName": "Bisbi-${version}-${os}-${arch}.${ext}"
+    },
+    "linux": {
+      "icon": "build-resources/icon.png",
+      "category": "Utility",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "tar.gz",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "Bisbi-${version}-${os}-${arch}.${ext}"
+    }
+  },
+  "allowScripts": {
+    "electron@33.4.11": true,
+    "esbuild@0.28.0": true,
+    "esbuild@0.21.5": true,
+    "fsevents@2.3.3": true,
+    "uiohook-napi@1.5.5": true
+  }
+}

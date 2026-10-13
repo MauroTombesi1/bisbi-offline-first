@@ -1,0 +1,246 @@
+import type { Translations } from './en';
+
+export const ar: Translations = {
+  app: {
+    brand: 'Bisbi',
+    tabs: {
+      home: 'الرئيسية',
+      settings: 'الإعدادات',
+    },
+    status: {
+      idle: 'جاهز',
+      recording: 'يسجل',
+      transcribing: 'يكتب',
+    },
+    loading: 'جارٍ التحميل…',
+    notElectron: {
+      body: 'يجب فتح هذه النافذة من خلال Electron حتى يعمل اختصار لوحة المفاتيح العام، والميكروفون، والكتابة.',
+      devHint:
+        'إذا كنت في وضع التطوير، شغّل {cmd} في جذر المستودع ودع Electron يفتح نافذته الخاصة. لا تفتح {url} مباشرة في المتصفح.',
+    },
+    micError:
+      'تعذّر الوصول إلى الميكروفون. تأكد من أن Bisbi يملك إذن الوصول في إعدادات النظام.',
+    pythonMissing: 'يلزم تثبيت Python للتفريغ محليًا. ثبّته ثم راجع الإعدادات.',
+    enginePackageMissing: 'أكمل إعداد المحرك لمرة واحدة في الإعدادات لتفعيل التفريغ.',
+    ffmpegMissing: 'يلزم تثبيت ffmpeg للتفريغ محليًا. ثبّته ثم راجع الإعدادات.',
+    modelMissing: 'نزّل نموذجًا من الإعدادات لتفعيل التفريغ.',
+    engineError: 'فشل التفريغ. راجع حالة المحرك في الإعدادات.',
+  },
+  home: {
+    greeting: {
+      lateNight: 'تصبح على خير',
+      morning: 'صباح الخير',
+      afternoon: 'مساء الخير',
+      evening: 'مساء الخير',
+    },
+    statusTitle: {
+      idle: 'جاهز للاستماع',
+      recording: 'يسجل الآن',
+      transcribing: 'يكتب',
+    },
+    watermark: {
+      idle: 'جاهز للاستماع إليك',
+      listening: 'يستمع',
+      transcribing: 'يكتب',
+    },
+    titleHint: 'اضغط الاختصار وتحدّث.',
+    hotkeyLabel: 'الاختصار',
+    hotkeyHintPaste: 'يتم لصق النص تلقائيًا حيث تكتب.',
+  },
+  settings: {
+    hotkey: {
+      title: 'اختصار لوحة المفاتيح',
+      description: 'اختصار عام للتسجيل.',
+      change: 'تغيير',
+      cancel: 'إلغاء',
+      waiting: 'اضغط على المفاتيح التي تريد استخدامها…',
+    },
+    handsFree: {
+      title: 'وضع التسجيل',
+      description: 'سلوك الاختصار.',
+      pushToTalk: {
+        label: 'اضغط للتحدث',
+        hint: 'استمر في الضغط على الاختصار أثناء التحدث، واتركه ليتوقف.',
+      },
+      tapToToggle: {
+        label: 'وضع حر اليدين',
+        hint: 'انقر مرة للبدء، ومرة أخرى للإيقاف.',
+      },
+      doubleTapNotice:
+        'انقر نقرًا مزدوجًا سريعًا على {hotkey} ليبقى التسجيل مستمرًا فتتمكن من ترك المفتاح.',
+    },
+    microphone: {
+      title: 'الميكروفون',
+      description: 'مدخل الصوت. يعود للافتراضي إذا لم يتوفر.',
+      systemDefault: 'افتراضي النظام',
+      unnamed: 'ميكروفون {index}',
+    },
+    engine: {
+      title: 'محرك التفريغ',
+      description:
+        'يعمل بالكامل محليًا باستخدام حزمة OpenAI الرسمية openai-whisper (github.com/openai/whisper) — بلا محرك من طرف ثالث وبلا سحابة. يتطلب Python 3 على هذا الكمبيوتر.',
+      pythonFound: 'تم العثور على Python {version}',
+      pythonMissing: 'لم يتم العثور على Python',
+      packageInstalled: 'openai-whisper مثبّت',
+      packageMissing: 'openai-whisper غير مثبّت',
+      ffmpegInstalled: 'تم العثور على ffmpeg',
+      ffmpegMissing: 'لم يتم العثور على ffmpeg',
+      install: 'تثبيت',
+      installing: 'جارٍ التثبيت…',
+    },
+    whisperModel: {
+      title: 'النموذج',
+      description:
+        'نسخة OpenAI Whisper الرسمية المستخدمة في التفريغ. النماذج الأكبر أكثر دقة لكنها أبطأ وأثقل في التنزيل.',
+      active: 'قيد الاستخدام',
+      use: 'استخدام',
+      download: 'تنزيل',
+    },
+    transcriptionLanguage: {
+      title: 'لغة التفريغ',
+      description: 'اللغة التي يتم إرجاع التفريغ بها.',
+      auto: 'كشف تلقائي',
+      unsupportedHint: 'النموذج المحدد مخصص للإنجليزية فقط ويفرّغ دائمًا بالإنجليزية.',
+      search: 'ابحث عن اللغات…',
+    },
+    uiLanguage: {
+      title: 'لغة التطبيق',
+      description: 'لغة الواجهة.',
+      system: 'النظام ({detected})',
+    },
+    openAtLogin: {
+      title: 'التشغيل عند بدء التشغيل',
+      description: 'فتح Bisbi عند بدء تشغيل النظام.',
+      enabled: {
+        label: 'مفعّل',
+        hint: 'يبدأ Bisbi في الخلفية عند تسجيل الدخول.',
+      },
+      disabled: {
+        label: 'معطّل',
+        hint: 'ستحتاج إلى فتح Bisbi يدويًا.',
+      },
+    },
+    muteAudio: {
+      title: 'كتم صوت النظام أثناء التسجيل',
+      description: 'كتم مخرجات النظام أثناء التسجيل.',
+      enabled: {
+        label: 'مفعّل',
+        hint: 'يُكتم الصوت أثناء الإملاء ويُستعاد عند التوقف.',
+      },
+      disabled: {
+        label: 'معطّل',
+        hint: 'يبقى مستوى الصوت كما هو.',
+      },
+    },
+    dangerZone: {
+      title: 'إعادة الضبط والبيانات',
+      description: 'إجراءات نهائية.',
+    },
+    reset: 'إعادة ضبط الإعدادات',
+    confirmReset: 'إعادة جميع الإعدادات إلى قيمها الافتراضية؟',
+  },
+  recording: {
+    recording: 'يسجل',
+    transcribing: 'يكتب…',
+    idle: 'جاهز',
+  },
+  uiLanguageOption: {
+    en: 'English',
+    es: 'Español',
+    zh: '中文',
+    hi: 'हिन्दी',
+    ar: 'العربية',
+  },
+  keys: {
+    command: 'Command',
+    leftCommand: 'Command الأيسر',
+    rightCommand: 'Command الأيمن',
+    control: 'Control',
+    leftControl: 'Control الأيسر',
+    rightControl: 'Control الأيمن',
+    option: 'Option',
+    leftOption: 'Option الأيسر',
+    rightOption: 'Option الأيمن',
+    alt: 'Alt',
+    leftAlt: 'Alt الأيسر',
+    rightAlt: 'Alt الأيمن',
+    shift: 'Shift',
+    leftShift: 'Shift الأيسر',
+    rightShift: 'Shift الأيمن',
+    win: 'Win',
+    leftWin: 'Win الأيسر',
+    rightWin: 'Win الأيمن',
+    ctrl: 'Ctrl',
+    leftCtrl: 'Ctrl الأيسر',
+    rightCtrl: 'Ctrl الأيمن',
+    space: 'مسافة',
+    capsLock: 'قفل الأحرف',
+    shortLeft: 'يس',
+    shortRight: 'يم',
+  },
+  tray: {
+    tooltipIdle: 'Bisbi — جاهز للإملاء',
+    tooltipRecording: 'Bisbi — يسجل…',
+    tooltipTranscribing: 'Bisbi — يكتب…',
+    openSettings: 'فتح الإعدادات',
+    quit: 'خروج',
+  },
+  errors: {
+    hotkeyRegister: 'تعذّر تسجيل الاختصار "{accel}". جرّب اختصارًا آخر.',
+  },
+  common: {
+    yes: 'نعم',
+    no: 'لا',
+  },
+  onboarding: {
+    progress: '{current} من {total}',
+    back: 'رجوع',
+    skip: 'تخطّي',
+    welcome: {
+      title: 'كتابتك بطيئة. التحدث أسرع 3 مرات.',
+      subtitle:
+        'يحوّل Bisbi صوتك إلى نص في أي تطبيق — في أقل من ثانيتين.',
+      cta: 'ابدأ',
+    },
+    permissions: {
+      title: 'يحتاج Bisbi إلى صلاحيتين.',
+      subtitle: 'لا يمكنه العمل بدونهما.',
+      grant: 'منح الصلاحيات',
+      continue: 'التالي',
+      openSettings: 'فتح إعدادات النظام',
+      microphone: {
+        title: 'الميكروفون',
+        description:
+          'لنسمعك عندما تتحدث. لا يغادر صوتك جهازك أبدًا.',
+        deniedHint: 'تعذّر الوصول إلى الميكروفون.',
+      },
+      accessibility: {
+        title: 'إمكانية الوصول',
+        description:
+          'كي يستطيع Bisbi كتابة النص حيث يوجد المؤشر، في أي تطبيق.',
+        deniedHint: 'تعذّر الحصول على إذن إمكانية الوصول.',
+      },
+    },
+    hotkey: {
+      title: 'بأي مفتاح تريد تشغيل Bisbi؟',
+      subtitle: 'اضغط مع الاستمرار للتحدث. حرّر المفتاح عند الانتهاء.',
+      recommended: 'موصى به',
+      custom: 'تخصيص…',
+      pickOne: 'اختر اختصارًا',
+      confirm: 'التالي',
+      conflictInUse: 'هذا التركيب مستخدم بالفعل. جرّب آخر.',
+      conflictInvalid: 'هذا التركيب غير مدعوم. جرّب آخر.',
+    },
+    dictation: {
+      title: 'أول إملاء لك.',
+      subtitle: 'اضغط مع الاستمرار على {hotkey} واقرأ هذا بصوت عالٍ:',
+      samplePhrase: 'اجتماع مع الفريق يوم الاثنين الساعة 10. أحضر عرض المبيعات.',
+      waiting: 'في انتظار صوتك…',
+      listening: 'جارٍ الاستماع…',
+      transcribing: 'جارٍ التفريغ…',
+      silenceError: 'لا نسمعك. هل الميكروفون متصل؟',
+      failedError: 'تعذّر التفريغ. حاول مرة أخرى.',
+      continue: 'متابعة',
+    },
+  },
+};
